@@ -191,6 +191,131 @@
             margin: 0;
             white-space: pre;
         }
+        
+        h4 {
+            font-size: 1.2rem;
+            color: #ff2e88;
+            letter-spacing: 2px;
+            margin: 0 0 1.5rem 0;
+            text-align: center;
+            text-shadow: 0 0 5px rgba(255, 46, 136, 0.7);
+        }
+        
+        .command-list {
+            margin: 1.5rem 0;
+            border: 1px solid rgba(0, 255, 213, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .command-item {
+            display: flex;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid rgba(0, 255, 213, 0.2);
+        }
+        
+        .command-item:last-child {
+            border-bottom: none;
+        }
+        
+        .command {
+            flex: 0 0 100px;
+            font-family: 'Courier New', monospace;
+            color: #ff2e88;
+            font-weight: bold;
+        }
+        
+        .description {
+            flex: 1;
+            color: #f0f0f0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .warning {
+            color: #ffcc00;
+            font-weight: bold;
+            border-left: 3px solid #ffcc00;
+            padding-left: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        /* Personal note section */
+        .personal-note {
+            background: rgba(30, 10, 50, 0.7);
+            border: 1px dashed rgba(255, 46, 136, 0.5);
+        }
+        
+        .personal-note h4 {
+            color: #00ffd5;
+        }
+        
+        .circuit-decoration {
+            display: flex;
+            align-items: center;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        
+        .circuit-line {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ff2e88, transparent);
+            width: 30%;
+        }
+        
+        .circuit-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff2e88;
+            margin: 0 10px;
+            box-shadow: 0 0 10px rgba(255, 46, 136, 0.8);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 46, 136, 0.8); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 46, 136, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 46, 136, 0); }
+        }
+        
+        /* Terminal output styling */
+        .terminal-output {
+            color: #00ff00;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+        
+        /* Note styling */
+        .note {
+            display: flex;
+            background: rgba(0, 255, 213, 0.1);
+            border-radius: 5px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .note-icon {
+            background: #00ffd5;
+            color: #0c0c1d;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .note-text {
+            color: #f0f0f0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -201,10 +326,12 @@
     <div class="container">
         <h1>REBASE 2025</h1>
         <h2>Git Overshare:</h2>
-        <h3>No One Needs to Know You Fixed That Typo. Adding Interactive Rebase to Your Git Wor kflow</h3>
+        <h3>No One Needs to Know You Fixed That Typo. Adding Interactive Rebase to Your Git Workflow 
+          <div class="cursor"></div>
+        </h3>
         
         <div class="content-box">
-            <p class="info-text">This is typically done by setting the <span class="highlight">core.editor</span> configuration in Git:</p>
+            <p class="info-text">This is typically done by setting the <span class="highlight">core.editor</span> configuration in Git. Here's how you likely set it up before:</p>
             
             <div class="code-block">
                 <p>git config --global core.editor "code --wait"</p>
@@ -219,7 +346,87 @@
             </div>
         </div>
         
-        <div class="cursor"></div>
+        <div class="content-box">
+            <h4>INTERACTIVE REBASE PROTOCOL</h4>
+            <p class="info-text">To use interactive rebase, be sure to add any changes that may exist and then:</p>
+            
+            <div class="code-block">
+                <p>git rebase -i HEAD~n</p>
+            </div>
+            
+            <p class="info-text">Where <span class="highlight">n</span> is the number of commits you want to modify.</p>
+            
+            <p class="info-text">Alternatively, to rebase onto another branch:</p>
+            
+            <div class="code-block">
+                <p>git rebase -i &lt;branch-name&gt;</p>
+            </div>
+            
+            <div class="note">
+                <div class="note-icon">i</div>
+                <div class="note-text">Rebasing should nearly never be performed on your <span class="highlight">main</span> branch. I always rebase to another branch and never perform this in the <span class="highlight">main</span> branch itself.</div>
+            </div>
+            
+            <p class="info-text">This will open the interactive rebase editor in VSCode, showing a list of commits with actions:</p>
+            
+            <div class="command-list">
+                <div class="command-item">
+                    <span class="command">pick</span>
+                    <span class="description">Use the commit as is</span>
+                </div>
+                <div class="command-item">
+                    <span class="command">reword</span>
+                    <span class="description">Edit the commit message</span>
+                </div>
+                <div class="command-item">
+                    <span class="command">edit</span>
+                    <span class="description">Pause to amend the commit</span>
+                </div>
+                <div class="command-item">
+                    <span class="command">squash</span>
+                    <span class="description">Combine with previous commit (keeps both messages)</span>
+                </div>
+                <div class="command-item">
+                    <span class="command">fixup</span>
+                    <span class="description">Combine with previous commit (discards this message)</span>
+                </div>
+                <div class="command-item">
+                    <span class="command">drop</span>
+                    <span class="description">Remove the commit entirely</span>
+                </div>
+            </div>
+            
+            <p class="info-text warning">Warning: Rebasing rewrites history. Never rebase commits on a <span class="highlight">main</span> or shared branch without consulting team members!</p>
+        </div>
+        
+        <div class="content-box personal-note">
+            <h4>PERSONAL LOG ENTRY</h4>
+            <p class="info-text">I especially am fond of <span class="highlight">fixup</span> to combine the contents of commits to another commit message. Why? Because no one needs to know I was fixing a typo. It's not relevant to the person performing a code review for me or even to me in 3 years when I'm trying to retrace my steps.</p>
+            
+            <div class="circuit-decoration">
+                <div class="circuit-line"></div>
+                <div class="circuit-dot"></div>
+                <div class="circuit-line"></div>
+            </div>
+        </div>
+        
+        <div class="content-box">
+            <h4>FINALIZING THE REBASE SEQUENCE</h4>
+            <p class="info-text">Once all commits have been changed in the way you want, click <span class="highlight">'Start Rebase'</span>. This will ideally result in a clean process, but can trigger merge conflicts, depending on how many changes you made at once.</p>
+            
+            <p class="info-text">I prefer to make small changes and then use <span class="highlight">fixup</span> later to clean things up a bit. Once you see in the terminal <span class="terminal-output">successful rebase</span>, it is time to push.</p>
+            
+            <p class="info-text">You must force push this commit, because we are rewriting history. I prefer to run:</p>
+            
+            <div class="code-block">
+                <p>git push origin HEAD --force-with-lease</p>
+            </div>
+            
+            <div class="note">
+                <div class="note-icon">i</div>
+                <div class="note-text">The <span class="highlight">--force-with-lease</span> flag is safer than <span class="highlight">--force</span> as it will abort if there have been any upstream changes you haven't pulled.</div>
+            </div>
+        </div>        
     </div>
 </body>
 </html>
