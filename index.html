@@ -153,6 +153,44 @@
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
+        
+        /* Content styling */
+        .content-box {
+            background: rgba(12, 12, 29, 0.7);
+            border: 1px solid rgba(0, 255, 213, 0.5);
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 15px rgba(0, 255, 213, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .info-text {
+            color: #f0f0f0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight {
+            color: #ff2e88;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #00ffd5;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block p {
+            font-family: 'Courier New', monospace;
+            color: #00ffd5;
+            margin: 0;
+            white-space: pre;
+        }
     </style>
 </head>
 <body>
@@ -164,6 +202,22 @@
         <h1>REBASE 2025</h1>
         <h2>Git Overshare:</h2>
         <h3>No One Needs to Know You Fixed That Typo. Adding Interactive Rebase to Your Git Wor kflow</h3>
+        
+        <div class="content-box">
+            <p class="info-text">This is typically done by setting the <span class="highlight">core.editor</span> configuration in Git:</p>
+            
+            <div class="code-block">
+                <p>git config --global core.editor "code --wait"</p>
+            </div>
+            
+            <p class="info-text">The <span class="highlight">--wait</span> flag is important as it tells the terminal to wait until you close the file in VSCode before proceeding with the Git operation.</p>
+            
+            <p class="info-text">If you want to make this configuration specific to just the current repository (not global), you would have used:</p>
+            
+            <div class="code-block">
+                <p>git config core.editor "code --wait"</p>
+            </div>
+        </div>
         
         <div class="cursor"></div>
     </div>
